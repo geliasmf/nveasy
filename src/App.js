@@ -1,25 +1,39 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import { React, useState } from "react";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Outlet,
+} from "react-router-dom";
+import Home from "./components/Home";
+import Login from "./components/Login";
+import Menu from "./components/Menu";
+import NewInvestment from "./components/NewInvestment";
+import ViewInvestment from "./components/ViewInvestment";
+import LandingPage from "./components/LandingPage";
+import "bootstrap/dist/css/bootstrap.min.css";
 
-function App() {
+const App = () => {
+  const [userData, setUserData] = useState(null); // Estado para guardar los datos del usuario
+  const handleLogin = (data) => {
+    setUserData(data);
+  };
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <div className="container">
+        <Menu userData={userData} />
+        <Routes>
+          <Route path="/" element={<LandingPage onLogin={handleLogin}/>} />
+          <Route path="/home" element={<Home />} />
+          <Route path="/login" element={<Login onLogin={handleLogin} />} />
+          <Route path="/new" element={<NewInvestment />} />
+          <Route path="/view" element={<ViewInvestment />} />
+        </Routes>
+        <Outlet />
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
