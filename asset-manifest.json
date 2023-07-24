@@ -1,0 +1,15 @@
+{
+  "files": {
+    "main.css": "/nveasy/static/css/main.593fdac5.css",
+    "main.js": "/nveasy/static/js/main.2c47bb9a.js",
+    "static/js/787.0f096153.chunk.js": "/nveasy/static/js/787.0f096153.chunk.js",
+    "index.html": "/nveasy/index.html",
+    "main.593fdac5.css.map": "/nveasy/static/css/main.593fdac5.css.map",
+    "main.2c47bb9a.js.map": "/nveasy/static/js/main.2c47bb9a.js.map",
+    "787.0f096153.chunk.js.map": "/nveasy/static/js/787.0f096153.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.593fdac5.css",
+    "static/js/main.2c47bb9a.js"
+  ]
+}
