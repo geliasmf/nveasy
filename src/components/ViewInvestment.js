@@ -1,8 +1,9 @@
 import { React, useState, useEffect } from "react";
 import axios from "axios";
-import BootstrapTable from "react-bootstrap-table-next";
+import { useTable, useSortBy, usePagination } from "react-table";
+//import BootstrapTable from "react-bootstrap-table-next";
 import BootstrapToggle from "react-bootstrap-toggle";
-import paginationFactory from "react-bootstrap-table2-paginator";
+//import paginationFactory from "react-bootstrap-table2-paginator";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSort } from "@fortawesome/free-solid-svg-icons";
 import ConfirmationDialog from "../components/utils/ConfirmationDialog"; // Ruta al componente ConfirmationDialog
@@ -80,7 +81,7 @@ const ViewInvestment = () => {
     return date.toLocaleDateString("es-MX", options);
   };
 
-  const actionFormatter = (cell, row) => {
+  /*const actionFormatter = (cell, row) => {
     return (
       <div>
         <button className="btn btn-primary" onClick={() => handleEdit(row)}>
@@ -95,6 +96,7 @@ const ViewInvestment = () => {
       </div>
     );
   };
+  */
 
   const renderToggle = (cell, row) => {
     const handleToggleChange = () => {
@@ -115,82 +117,84 @@ const ViewInvestment = () => {
     );
   };
 
-  const columns = [
-    {
-      dataField: "maturityDate",
-      text: "Fecha rendimiento",
-      sort: true,
-      sortCaret: (order) => {
-        if (!order)
-          return <FontAwesomeIcon icon={faSort} className="text-secondary" />;
-        if (order === "asc")
-          return <FontAwesomeIcon icon={faSort} className="text-primary" />;
-        if (order === "desc")
-          return (
-            <FontAwesomeIcon
-              icon={faSort}
-              className="text-primary rotate-180"
-            />
-          );
-        return null;
+  const columns = React.useMemo(
+    () => [
+      {
+        Header: "Fecha rendimiento",
+        accessor: "maturityDate",
+        sortType: "datetime",
+        Cell: ({ value }) => maturityDateFormatter(value),
       },
-      formatter: maturityDateFormatter,
-    },
-    {
-      dataField: "company",
-      text: "Empresa",
-      sort: true,
-      sortCaret: (order) => {
-        if (!order)
-          return <FontAwesomeIcon icon={faSort} className="text-secondary" />;
-        if (order === "asc")
-          return <FontAwesomeIcon icon={faSort} className="text-primary" />;
-        if (order === "desc")
-          return (
-            <FontAwesomeIcon
-              icon={faSort}
-              className="text-primary rotate-180"
-            />
-          );
-        return null;
+      {
+        Header: "Empresa",
+        accessor: "company",
       },
-    },
-    {
-      dataField: "amount",
-      text: "Monto",
-      sort: true,
-      sortCaret: (order) => {
-        if (!order)
-          return <FontAwesomeIcon icon={faSort} className="text-secondary" />;
-        if (order === "asc")
-          return <FontAwesomeIcon icon={faSort} className="text-primary" />;
-        if (order === "desc")
-          return (
-            <FontAwesomeIcon
-              icon={faSort}
-              className="text-primary rotate-180"
-            />
-          );
-        return null;
+      {
+        Header: "Monto",
+        accessor: "amount",
+        sortType: "alphanumeric",
+        Cell: ({ value }) => currencyFormatter(value),
       },
-      formatter: currencyFormatter,
-    },
+      {
+        Header: "Rendimiento",
+        accessor: "monthlyReturn",
+        Cell: ({ value }) => renderToggle(value),
+      },
+      {
+        Header: "Acciones",
+        accessor: "id",
+        Cell: ({ row }) => (
+          <div>
+            <button
+              className="btn btn-primary"
+              onClick={() => handleEdit(row.original)}
+            >
+              Editar
+            </button>
+            <button
+              className="btn btn-secondary"
+              onClick={() => handleShowConfirmation(row.original.id)}
+            >
+              Eliminar
+            </button>
+          </div>
+        ),
+      },
+    ],
+    []
+  );
+
+  const {
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    rows,
+    prepareRow,
+    pageOptions,
+    state: { pageIndex, pageSize },
+    gotoPage,
+    nextPage,
+    previousPage,
+    canNextPage,
+    canPreviousPage,
+    pageCount,
+    setPageSize,
+  } = useTable(
     {
-      dataField: "monthlyReturn",
-      text: "Rendimiento",
-      formatter: renderToggle,
+      columns,
+      data,
+      initialState: { pageIndex: 0, pageSize: 10 },
     },
-    {
-      dataField: "id",
-      text: "Acciones",
-      formatter: actionFormatter,
-    },
-  ];
+    useSortBy,
+    usePagination
+  );
 
   useEffect(() => {
     fetchData();
   }, []);
 
+  /*
+  
   return (
     <div>
       <BootstrapTable
@@ -211,6 +215,118 @@ const ViewInvestment = () => {
       )}
     </div>
   );
+};*/
+return (
+  <div>
+    <table {...getTableProps()} className="table table-striped">
+      <thead>
+        {headerGroups.map((headerGroup) => (
+          <tr {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map((column) => (
+              <th
+                {...column.getHeaderProps(column.getSortByToggleProps())}
+                className="sortable-header"
+              >
+                {column.render("Header")}
+                <span>
+                  {column.isSorted ? (
+                    column.isSortedDesc ? (
+                      <FontAwesomeIcon
+                        icon={faSort}
+                        className="text-primary rotate-180"
+                      />
+                    ) : (
+                      <FontAwesomeIcon
+                        icon={faSort}
+                        className="text-primary"
+                      />
+                    )
+                  ) : (
+                    <FontAwesomeIcon
+                      icon={faSort}
+                      className="text-secondary"
+                    />
+                  )}
+                </span>
+              </th>
+            ))}
+          </tr>
+        ))}
+      </thead>
+      <tbody {...getTableBodyProps()}>
+        {rows.map((row) => {
+          prepareRow(row);
+          return (
+            <tr {...row.getRowProps()}>
+              {row.cells.map((cell) => (
+                <td {...cell.getCellProps()}>{cell.render("Cell")}</td>
+              ))}
+            </tr>
+          );
+        })}
+      </tbody>
+    </table>
+    <div className="pagination">
+      <button onClick={() => gotoPage(0)} disabled={!canPreviousPage}>
+        {"<<"}
+      </button>
+      <button onClick={() => previousPage()} disabled={!canPreviousPage}>
+        {"<"}
+      </button>
+      <button onClick={() => nextPage()} disabled={!canNextPage}>
+        {">"}
+      </button>
+      <button onClick={() => gotoPage(pageCount - 1)} disabled={!canNextPage}>
+        {">>"}
+      </button>
+      <span>
+        Página{" "}
+        <strong>
+          {pageIndex + 1} de {pageOptions.length}
+        </strong>{" "}
+      </span>
+      <span>
+        | Ir a la página:{" "}
+        <input
+          type="number"
+          defaultValue={pageIndex + 1}
+          onChange={(e) => {
+            const page = e.target.value
+              ? Number(e.target.value) - 1
+              : 0;
+            gotoPage(page);
+          }}
+        />
+      </span>{" "}
+      <select
+        value={pageSize}
+        onChange={(e) => {
+          setPageSize(Number(e.target.value));
+        }}
+      >
+        {[10, 20, 30, 40, 50].map((pageSize) => (
+          <option key={pageSize} value={pageSize}>
+            Mostrar {pageSize}
+          </option>
+        ))}
+      </select>
+    </div>
+    <ConfirmationDialog
+      show={showConfirmation}
+      title="Confirmar Eliminación"
+      message="¿Estás seguro de que deseas eliminar este elemento?"
+      onConfirm={handleAcceptConfirmation}
+      onCancel={handleCloseConfirmation}
+    />
+    {showEditModal && (
+      <EditInvestment
+        investment={selectedItem}
+        onClose={handleCloseEditModal}
+        onUpdate={handleUpdateView}
+      />
+    )}
+  </div>
+);
 };
 
 export default ViewInvestment;
