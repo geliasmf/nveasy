@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/geliasmf/nveasy/static/css/main.37e3db9b.css",
-    "main.js": "/geliasmf/nveasy/static/js/main.14c94505.js",
-    "static/js/787.0f096153.chunk.js": "/geliasmf/nveasy/static/js/787.0f096153.chunk.js",
-    "index.html": "/geliasmf/nveasy/index.html",
-    "main.37e3db9b.css.map": "/geliasmf/nveasy/static/css/main.37e3db9b.css.map",
-    "main.14c94505.js.map": "/geliasmf/nveasy/static/js/main.14c94505.js.map",
-    "787.0f096153.chunk.js.map": "/geliasmf/nveasy/static/js/787.0f096153.chunk.js.map"
+    "main.css": "/nveasy/static/css/main.37e3db9b.css",
+    "main.js": "/nveasy/static/js/main.acf61aaf.js",
+    "static/js/787.0f096153.chunk.js": "/nveasy/static/js/787.0f096153.chunk.js",
+    "index.html": "/nveasy/index.html",
+    "main.37e3db9b.css.map": "/nveasy/static/css/main.37e3db9b.css.map",
+    "main.acf61aaf.js.map": "/nveasy/static/js/main.acf61aaf.js.map",
+    "787.0f096153.chunk.js.map": "/nveasy/static/js/787.0f096153.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.37e3db9b.css",
-    "static/js/main.14c94505.js"
+    "static/js/main.acf61aaf.js"
   ]
 }
