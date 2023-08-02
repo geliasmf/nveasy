@@ -12,6 +12,7 @@ import Menu from "./components/Menu";
 import NewInvestment from "./components/NewInvestment";
 import ViewInvestment from "./components/ViewInvestment";
 import LandingPage from "./components/LandingPage";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
   const [userData, setUserData] = useState(null); // Estado para guardar los datos del usuario
