@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+import  { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 import config from "../AppConfig.json";
 
-const Login = ({ onLogin }) => { 
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+const Login = ({ onLogin }) => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
   const handleUsernameChange = (event) => {
@@ -20,20 +20,20 @@ const Login = ({ onLogin }) => {
     event.preventDefault();
 
     try {
-      const response = await axios.get(config.apiUrl +'/usersApp/login', {
+      const response = await axios.get(config.apiUrl + "/usersApp/login", {
         params: {
           userName: username,
-          password: password
-        }
+          password: password,
+        },
       });
 
       console.log(response.data);
-      
+
       // Guardar los datos del usuario en el estado
       onLogin(response.data);
 
       // Redireccionar a la página de inicio después de un inicio de sesión exitoso
-      navigate('/view');
+      navigate("/view");
     } catch (error) {
       // Ocurrió un error durante el inicio de sesión
       console.error(error);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import BootstrapToggle from "react-bootstrap-toggle";
 import "react-bootstrap-toggle/dist/bootstrap2-toggle.css";
@@ -41,20 +41,17 @@ const NewInvestment = () => {
     axios.defaults.headers.post["Content-Type"] =
       "application/x-www-form-urlencoded";
     axios.defaults.transformRequest = [(data) => qs.stringify(data)];
-    
+
     event.preventDefault();
 
     try {
-      const response = await axios.post(
-        config.apiUrl + "/investments/create",
-        {
-          company: company,
-          amount: amount,
-          term: term,
-          maturityDate: maturityDate,
-          monthlyReturn: monthlyReturn,
-        }
-      );
+      const response = await axios.post(config.apiUrl + "/investments/create", {
+        company: company,
+        amount: amount,
+        term: term,
+        maturityDate: maturityDate,
+        monthlyReturn: monthlyReturn,
+      });
 
       console.log(response.data);
 

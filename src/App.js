@@ -1,5 +1,5 @@
 import "./App.css";
-import { React, useState } from "react";
+import { useState } from "react";
 import {
   BrowserRouter as Router,
   Routes,
@@ -24,7 +24,7 @@ const App = () => {
       <div className="container">
         <Menu userData={userData} />
         <Routes>
-          <Route path="/" element={<LandingPage onLogin={handleLogin}/>} />
+          <Route path="/" element={<LandingPage onLogin={handleLogin} />} />
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login onLogin={handleLogin} />} />
           <Route path="/new" element={<NewInvestment />} />

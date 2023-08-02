@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import BootstrapToggle from "react-bootstrap-toggle";
 import "react-bootstrap-toggle/dist/bootstrap2-toggle.css";
@@ -43,17 +43,14 @@ const EditInvestment = ({ investment, onClose, onUpdate }) => {
     event.preventDefault();
 
     try {
-      await axios.put(
-        config.apiUrl +"/investments/update",
-        {
-          id: investment.id,
-          company: company,
-          amount: amount,
-          term: term,
-          maturityDate: maturityDate,
-          monthlyReturn: monthlyReturn,
-        }
-      );
+      await axios.put(config.apiUrl + "/investments/update", {
+        id: investment.id,
+        company: company,
+        amount: amount,
+        term: term,
+        maturityDate: maturityDate,
+        monthlyReturn: monthlyReturn,
+      });
       setSuccessMessage("¡El formulario se envió con éxito!"); // Establecer el mensaje de éxito
       setTimeout(onClose, 3000);
       setTimeout(onUpdate, 4000);
