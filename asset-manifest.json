@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/nveasy/static/css/main.37e3db9b.css",
-    "main.js": "/nveasy/static/js/main.c6200404.js",
+    "main.js": "/nveasy/static/js/main.1b33efdc.js",
     "static/js/787.0f096153.chunk.js": "/nveasy/static/js/787.0f096153.chunk.js",
     "index.html": "/nveasy/index.html",
     "main.37e3db9b.css.map": "/nveasy/static/css/main.37e3db9b.css.map",
-    "main.c6200404.js.map": "/nveasy/static/js/main.c6200404.js.map",
+    "main.1b33efdc.js.map": "/nveasy/static/js/main.1b33efdc.js.map",
     "787.0f096153.chunk.js.map": "/nveasy/static/js/787.0f096153.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.37e3db9b.css",
-    "static/js/main.c6200404.js"
+    "static/js/main.1b33efdc.js"
   ]
 }
