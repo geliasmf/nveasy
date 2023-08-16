@@ -81,6 +81,7 @@ const Login = ({ onLogin }) => {
               </button>
             </div>
           </div>
+          <div className="row"><span>v.0.0.0.4</span></div>
         </form>
       </div>
     </div>
