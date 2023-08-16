@@ -80,6 +80,7 @@ const Login = ({ onLogin }) => {
                 Registrarse
               </button>
             </div>
+            <div className="row"><span>v0.0.0.6</span></div>
           </div>
         </form>
       </div>
